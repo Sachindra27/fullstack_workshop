@@ -1,5 +1,4 @@
 const API_URL = "http://localhost:3000/movies";
-
 const movieListDiv = document.getElementById("movie-list");
 const searchInput = document.getElementById("search-input");
 const form = document.getElementById("add-movie-form");
@@ -18,7 +17,7 @@ function renderMovies(moviesToDisplay) {
 <p><strong>${movie.title}</strong> (${movie.year}) - ${movie.genre}</p>
 <button onclick="editMoviePrompt('${movie.id}', '${movie.title}', ${movie.year},
 '${movie.genre}')">Edit</button>
-<button onclick="deleteMovie('${movie.id}')">Delete</button>
+<button onclick="deleteMovie('${movie.id}')">Delete </button>
 `;
     movieListDiv.appendChild(movieElement);
   });
@@ -36,7 +35,6 @@ function fetchMovies() {
 fetchMovies(); // Initial load
 searchInput.addEventListener("input", function () {
   const searchTerm = searchInput.value.toLowerCase();
-
   // Filter the global 'allMovies' array based on title or genre match
   const filteredMovies = allMovies.filter((movie) => {
     const titleMatch = movie.title.toLowerCase().includes(searchTerm);
@@ -67,7 +65,6 @@ form.addEventListener("submit", function (event) {
     })
     .catch((error) => console.error("Error adding movie:", error));
 });
-// Function to collect new data
 function editMoviePrompt(id, currentTitle, currentYear, currentGenre) {
   const newTitle = prompt("Enter new Title:", currentTitle);
   const newYearStr = prompt("Enter new Year:", currentYear);
@@ -106,6 +103,7 @@ function deleteMovie(movieId) {
   })
     .then((response) => {
       if (!response.ok) throw new Error("Failed to delete movie");
+
       fetchMovies(); // Refresh list
     })
     .catch((error) => console.error("Error deleting movie:", error));
